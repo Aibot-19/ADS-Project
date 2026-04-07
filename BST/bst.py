@@ -31,113 +31,136 @@ class BST:
             x = x.right
         return x
 
-    def find(self, node, k):
+    def find(self, k):
+        return self.find_rec(self.root, k)
+    
+    def find_rec(self, node, k):
         if node == None or node.key == k:
             return node
         else:
             if node.key > k:
-                self.find(node.left, k)
+              return  self.find_rec(node.left, k)
             else:
-                self.find(node.right, k)
+              return  self.find_rec(node.right, k)
 
 
     def nxt(self, node):
-        if node.right != None:
-            return self.min(node.right)
+        if node == None:
+            return None
         else:
-            y = node.parent
-            while y != None and node != y.left:
-                node = y
+            if node.right != None:
+                return self.min(node.right)
+            else:
                 y = node.parent
-            return y
+                while y != None and node != y.left:
+                    node = y
+                    y = node.parent
+                return y
 
     def prv(self, node):
-        if node.left != None:
-            return self.max(node.left)
+        if node == None:
+            return None
         else:
-            y = node.parent
-            while y != None and node == y.left:
-                node = y
+            if node.left != None:
+                return self.max(node.left)
+            else:
                 y = node.parent
-            return y
+                while y != None and node == y.left:
+                    node = y
+                    y = node.parent
+                return y
 
     def insert(self, node):
-        y = None
-        x = self.root
-        while x != None:
-            if x.key > node.key:
-                y = x
-                x = x.left
-            else:
-                y = x
-                x = x.right
-        if y == None:
-            self.root = node
+        if node == None:
+            return None
         else:
-            node.parent = y
-            if y.key > node.key:
-                y.left = node
+            y = None
+            x = self.root
+            while x != None:
+                if x.key > node.key:
+                    y = x
+                    x = x.left
+                else:
+                    y = x
+                    x = x.right
+            if y == None:
+                self.root = node
             else:
-                y.right = node
+                node.parent = y
+                if y.key > node.key:
+                    y.left = node
+                else:
+                    y.right = node
 
     def remove(self, node):
-        if(node.left == None or node.right == None):
-            x = node
+        if node == None:
+            return None
         else:
-            x = self.nxt(node)
-        if(x.left != None):
-            v = x.left
-        else:
-            v = x.right
-        if(x.parent == None):
-            self.root = v
-        else:
-            if(x == x.parent.left):
-                x.parent.left = v
+            if(node.left == None or node.right == None):
+                x = node
             else:
-                x.parent.right = v
-        if(x != node):
-            node.key = x.key
+                x = self.nxt(node)
+            if(x.left != None):
+                v = x.left
+            else:
+                v = x.right
+            if(x.parent == None):
+                self.root = v
+            else:
+                if(x == x.parent.left):
+                    x.parent.left = v
+                else:
+                    x.parent.right = v
+            if v is not None:
+                v.parent = x.parent
+            if(x != node):
+                node.key = x.key
 
 
     def rotate_right(self, node):
-        p = node.parent
-        y = node.left
-        if(p == None):
-            y.parent = None
-            self.root = y
+        if node == None or node.left == None:
+            return None
         else:
-            y.parent = p
-            if(node == p.left):
-                p.left = y
+            p = node.parent
+            y = node.left
+            if(p == None):
+                y.parent = None
+                self.root = y
             else:
-                p.right = y
-        z = y.right
-        node.left = z
-        if z != None:
-            z.parent = node
-        y.right = node
-        node.parent = y
+                y.parent = p
+                if(node == p.left):
+                    p.left = y
+                else:
+                    p.right = y
+            z = y.right
+            node.left = z
+            if z != None:
+                z.parent = node
+            y.right = node
+            node.parent = y
 
 
 
 
     def rotate_left(self, node):
-        p = node.parent
-        y = node.right
-        if(p == None):
-            y.parent = None
-            self.root = y
+        if node == None or node.right == None:
+            return None
         else:
-            y.parent = p
-            if(node == p.left):
-                p.left = y
+            p = node.parent
+            y = node.right
+            if(p == None):
+                y.parent = None
+                self.root = y
             else:
-                p.right = y
-        z = y.left
-        node.right = z
-        if z != None:
-            z.parent = node
-        y.left = node
-        node.parent = y
+                y.parent = p
+                if(node == p.left):
+                    p.left = y
+                else:
+                    p.right = y
+            z = y.left
+            node.right = z
+            if z != None:
+                z.parent = node
+            y.left = node
+            node.parent = y
  
