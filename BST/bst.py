@@ -43,7 +43,6 @@ class BST:
             else:
               return  self.find_rec(node.right, k)
 
-
     def nxt(self, node):
         if node == None:
             return None
