@@ -1,4 +1,4 @@
-import BST 
+from BST import BST 
 
 class AVL(BST):
     def __init__(self, root = None):
@@ -7,7 +7,7 @@ class AVL(BST):
     def _get_height(self, node):           # restituisce altezza nodo altrimenti none
         if node is None:
             return 0
-        return node.height if node.height is not None else 0
+        return getattr(node, 'height', 0)           # prende attributo altezza anche da nodi appena creati
     
     def _update_node_height(self, node):        # applica formula 1 + max(h(left), h(right)), chiamata dopo insert o del
         if node is not None:
@@ -27,7 +27,7 @@ class AVL(BST):
                     self._update_node_height(y)
                     self._update_node_height(x.left)                    # y diventa nipote o figlio
                                  # rotazione destra su nodo sbilanciato
-                self._rotate_right(x)
+                self.rotate_right(x)
                 self._update_node_height(x)
                 self._update_node_height(x.parent)
                 x = x.parent                                            # dopo rotazione, genitore bilanciato
@@ -39,7 +39,7 @@ class AVL(BST):
                     self._update_node_height(y)
                     self._update_node_height(x.right)
                                   # rotazione sx su nodo bilanciato
-                self._rotate_left(x)
+                self.rotate_left(x)
                 self._update_node_height(x)
                 self._update_node_height(x.parent)
                 x = x.parent
@@ -47,32 +47,21 @@ class AVL(BST):
 
 
     def insert(self, node):                 # inserimento AVL: inserimento BST + ribilanciamento
-        super().insert(node) 
         node.height = 1
+        super().insert(node) 
         self._rebalance(node.parent)                               # ribilancia partendo dal nodo padre 
                                                                      # (nodo appena inserito non può essere sbilanciato, è foglia)
 
 
     def remove(self, node):                 # rimozione AVL: rimozione BST + ribilanciamento
-        if node.left is None or node.right is None:                # trova nodo da rimuovere
-            y = node
-        else: y = self.nxt(node)
-                                 # il punto da cui ribilanciare è il padre del nodo rimosso
-        parent_of_removed = y.parent
-                                 # nodo rimosso = successore, chiave di y è copiata in node. va gestito il caso in cui POR è node, con node = padre di y
-        if y != node:
-            start_node = parent_of_removed
-            super().remove(node)
-                                # se y è figlio di node, punto da cui ribilanciare è node stesso
-            if start_node == node:
-                self._rebalance(node)
-            else: 
-                self._rebalance(start_node)
-        else: 
-            super().remove(node)
-            self._rebalance(parent_of_removed)
-
-
-    def __id__(self): return id(self)
+        if node.left and node.right:                    # 2 figli, rimuove successore
+            y = self.nxt(node)
+            start_node = y.parent
+            if start_node == node:                      # successore=figlio, start deve rimanere suc
+                start_node = node
+        else:
+            start_node = node.parent
+        super().remove(node)                        # rimozione standard
+        self._rebalance(start_node)
 
 
