@@ -8,5 +8,40 @@ from RBT import RBT
 from TreeManager import TreeManager 
 
 def main():
-    # progressione geometrica, calcolo costante c, crea file, inizializza batch, apri file e scrivi, scegli tra 3 test diversi a seconda dell'albero
-    # scrivi nel file, printa e sivallettoh
+    #valore minimo di n
+    n_min = 1000
+    #valore massimo di n
+    n_max = 10000000
+    #calcolo la costante c
+    c = pow((n_max/n_min), (1/99))
+    #creo gli array per salvare i dati delle misurazioni dei tempi per ciascun array
+    bst_times = []
+    avl_times = []
+    rbt_times = []
+
+    for i in range(0, 100):
+        #creo il valore i-esimo della progressione geometrica
+        n_i = math.floor(n_min * pow(c, i))
+        #creo il tree-manager composto da n_i chiavi
+        tm = TreeManager(n_i)
+        #creo gli alberi
+        bst = BST()
+        avl = AVL()
+        rbt = RBT()
+        #popolo gli alberi per un totale di n_i chiavi
+        tm.create_tree(bst, n_i)
+        tm.create_tree(avl, n_i)
+        tm.create_tree(rbt, n_i)
+        #misuro i tempi e inserisco questi tempi all'interno dell'i-esima cella dell'array
+        bst_times.insert(i, tm.measure_insert(bst))
+        print(bst_times[i])
+        avl_times.insert(i, tm.measure_insert(avl))
+        print(avl_times[i])
+        rbt_times.insert(i, tm.measure_insert(rbt))
+        print(rbt_times[i])
+
+
+    #TODO: scrivere gli array nel fiel e fare il plot dei risultati. SIVALLETTOH
+
+if __name__ == "__main__":
+    main()

@@ -67,7 +67,7 @@ class TreeManager():
     def create_tree(self, tree, n):        
         self.m = 0                                  # no chiavi nell'albero
         for i in range(n):
-            j = random.randrage(self.m, len(self.keys_array))               # prendo indice a caso e relativa chiave
+            j = random.randrange(self.m, len(self.keys_array))               # prendo indice a caso e relativa chiave
             chiave_estratta = self.keys_array[j]
             nuovo_nodo = TreeNode(chiave_estratta)                          # creo nodo richiesto e lo inserisco nell'albero + swap col muro
             tree.insert(nuovo_nodo)
@@ -96,8 +96,8 @@ class TreeManager():
             # 2- ripristino dimensione albero
             # prendo una chiave dalla zona interna, la ricerco e rimuovo il nodo se esiste
             j_out = random.randrange(0, self.m)
-            chiave_da_rimuovere = self.keys.array[j_out]
-            nodo_out = tree.search(chiave_da_rimuovere)     # ricerca in base all'albero in questione
+            chiave_da_rimuovere = self.keys_array[j_out]
+            nodo_out = tree.find(chiave_da_rimuovere)     # ricerca in base all'albero in questione
             if nodo_out:
                 tree.remove(nodo_out)               # rimuove in base all'albero in questione
             # aggiorno array facendo arretrare il muro
