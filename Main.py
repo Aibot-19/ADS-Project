@@ -18,10 +18,12 @@ def main():
     bst_times = []
     avl_times = []
     rbt_times = []
+    n_values = []
 
     for i in range(0, 100):
         #creo il valore i-esimo della progressione geometrica
         n_i = math.floor(n_min * pow(c, i))
+        n_values.insert(i, n_i)
         #creo il tree-manager composto da n_i chiavi
         tm = TreeManager(n_i)
         #creo gli alberi
@@ -40,8 +42,18 @@ def main():
         rbt_times.insert(i, tm.measure_insert(rbt))
         print(rbt_times[i])
 
+    with open('misurazioni_alberi.csv', mode='w', newline='') as csv_file:
+        writer = csv.writer(csv_file)
 
-    #TODO: scrivere gli array nel fiel e fare il plot dei risultati. SIVALLETTOH
+        writer.writerow(['Dimensione_N', 'Tempo_BST', 'Tempo_AVL', 'Tempo_RBT'])
+
+        for i in range(0, 100):
+            row = [n_values[i], bst_times[i], avl_times[i], rbt_times[i]]
+            writer.writerow(row)
+
+    print("dati salvati con successo in 'misurazioni_alberi.csv'")
+
+    
 
 if __name__ == "__main__":
     main()

@@ -16,52 +16,6 @@ class TreeManager():
         self.keys_array = list(range(n + 1))
         self.m = 0
  
-    #this method creates a tree with keys from 0 to n in a random order.
-    #TODO this method should return the tree!! 
-    #cost O(n * log n)
-    def create_rbt(self):
-        tree = RBT.__init__()
-        n = len(self.keys_array)
-        #creates the tree and the two zones of the array [ tree_keys | m | external_keys ]
-        for i in range(0, n):
-            #generating the random integer in the range(m, n-1)
-            j = random.randrange(self.m, n)
-            #insert of the key into the tree
-            tree.insert(self.keys_array[j])
-            #swapping the elements
-            self.keys_array[j], self.keys_array[self.m] = self.keys_array[self.m], self.keys_array[j]
-            #increasing the index for the tree_keys zone
-            self.m = self.m + 1
-
-    def create_avl(self, n):
-        tree = AVL.__init__()
-        n = len(self.keys_array)
-        #creates the tree and the two zones of the array [ tree_keys | m | external_keys ]
-        for i in range(0, n):
-            #generating the random integer in the range(m, n-1)
-            j = random.randrange(self.m, n)
-            #insert of the key into the tree
-            tree.insert(self.keys_array[j])
-            #swapping the elements
-            self.keys_array[j], self.keys_array[self.m] = self.keys_array[self.m], self.keys_array[j]
-            #increasing the index for the tree_keys zone
-            self.m = self.m + 1
-
-    def create_bst(self, n):
-        tree = BST.__init__()
-        n = len(self.keys_array)
-        #creates the tree and the two zones of the array [ tree_keys | m | external_keys ]
-        for i in range(0, n):
-            #generating the random integer in the range(m, n-1)
-            j = random.randrange(self.m, n)
-            #insert of the key into the tree
-            tree.insert(self.keys_array[j])
-            #swapping the elements
-            self.keys_array[j], self.keys_array[self.m] = self.keys_array[self.m], self.keys_array[j]
-            #increasing the index for the tree_keys zone
-            self.m = self.m + 1
-
-
     # popola albero (BST/AVL/RBT) con n nodi estratti random, unisce in un'unica funzione la creazione di uno dei tree alberi
     # complessità O(n * log n) 
     def create_tree(self, tree, n):        
