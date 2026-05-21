@@ -26,22 +26,23 @@ def main():
         n_values.insert(i, n_i)
         # creates tree_manager composed of n_i keys
         tm = TreeManager(n_i)
-        # creates trees
+        # creates and measures time of insert for BST, AVL and RBT, saves it in the respective array
         bst = BST()
-        avl = AVL()
-        rbt = RBT()
-        # populates trees with a total of n_i keys
-        tm.create_tree(bst, n_i)
-        tm.create_tree(avl, n_i)
-        tm.create_tree(rbt, n_i)
-        # measures times and inserts them inside of array's i-th cell 
+        tm.create_tree(bst)
         bst_times.insert(i, tm.measure_insert(bst))
-        print(bst_times[i])
+        #print(bst_times[i])
+        
+        avl = AVL()
+        tm.create_tree(avl)
         avl_times.insert(i, tm.measure_insert(avl))
-        print(avl_times[i])
+        #print(avl_times[i])
+        
+        rbt = RBT()
+        tm.create_tree(rbt)
         rbt_times.insert(i, tm.measure_insert(rbt))
-        print(rbt_times[i])
-
+        #print(rbt_times[i])
+        print(i + 1, "% completato")
+        
     with open('misurazioni_alberi.csv', mode='w', newline='') as csv_file:
         writer = csv.writer(csv_file)
 

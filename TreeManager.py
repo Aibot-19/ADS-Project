@@ -12,14 +12,15 @@ from BST import BST, TreeNode
 
 class TreeManager():
     def __init__(self, n):
-        # creo array [0, 1, 2, ..., n]
+        # creates array [0, 1, 2, ..., n]
         self.keys_array = list(range(n + 1))
         self.m = 0
  
     # populates tree (BST/AVL/RBT) with n nodes random extracted, combines in a single function the creation of one of the trees
     # time complexity O(n * log n) 
-    def create_tree(self, tree, n):        
-        self.m = 0                                  # no keys in the tree
+    def create_tree(self, tree):        
+        self.m = 0 
+        n = len(self.keys_array) - 1                        # no keys in the tree
         for i in range(n):
             j = random.randrange(self.m, len(self.keys_array))               # takes random index and relative key
             chiave_estratta = self.keys_array[j]
