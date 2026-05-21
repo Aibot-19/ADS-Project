@@ -8,33 +8,33 @@ from RBT import RBT
 from TreeManager import TreeManager 
 
 def main():
-    #valore minimo di n
+    # minimum value of n 
     n_min = 1000
-    #valore massimo di n
+    # maximum value of n 
     n_max = 10000000
-    #calcolo la costante c
+    # calculates c costant 
     c = pow((n_max/n_min), (1/99))
-    #creo gli array per salvare i dati delle misurazioni dei tempi per ciascun array
+    # creates arrays to save measurement datas (for each array/tree)
     bst_times = []
     avl_times = []
     rbt_times = []
     n_values = []
 
     for i in range(0, 100):
-        #creo il valore i-esimo della progressione geometrica
+        # creates the i-th value of the geometric progression
         n_i = math.floor(n_min * pow(c, i))
         n_values.insert(i, n_i)
-        #creo il tree-manager composto da n_i chiavi
+        # creates tree_manager composed of n_i keys
         tm = TreeManager(n_i)
-        #creo gli alberi
+        # creates trees
         bst = BST()
         avl = AVL()
         rbt = RBT()
-        #popolo gli alberi per un totale di n_i chiavi
+        # populates trees with a total of n_i keys
         tm.create_tree(bst, n_i)
         tm.create_tree(avl, n_i)
         tm.create_tree(rbt, n_i)
-        #misuro i tempi e inserisco questi tempi all'interno dell'i-esima cella dell'array
+        # measures times and inserts them inside of array's i-th cell 
         bst_times.insert(i, tm.measure_insert(bst))
         print(bst_times[i])
         avl_times.insert(i, tm.measure_insert(avl))

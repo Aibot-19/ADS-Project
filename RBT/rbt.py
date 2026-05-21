@@ -7,43 +7,43 @@ class RBTree(BST):
     def __init__(self, root=None):
         super().__init__(root)
 
-    def _get_color(self, node):                 # restituisce colore nodo, se è None (NIL) è nero
+    def _get_color(self, node):                 # returns color node, if node=None
         if node is None:
             return "black"
         return getattr(node, 'color', "black")
     
-    def _set_color(self, node, color_string):          # assegna colore a nodo, se esiste
+    def _set_color(self, node, color_string):          # assigns color to node if it exists
         if node is not None:
             node.color = color_string
 
 
     def insert(self, node):
-        self._set_color(node, "red")                # nuovi nodi sono rossi
+        self._set_color(node, "red")                # new nodes = red
         super().insert(node)
         self._fix_insert(node)
 
-    def _fix_insert(self, z):                   # risolve gli errori post inserimento
+    def _fix_insert(self, z):                   # fixes errors after insertion
         while z.parent and self._get_color(z.parent) == "red":
             if z.parent == z.parent.parent.left:
-                y = z.parent.parent.right           # è lo zio
-                # Caso 1: zio rosso
+                y = z.parent.parent.right           # y = uncle
+                # Case 1: uncle is red
                 if self._get_color(y) == "red":
                     self._set_color(z.parent, "black")
                     self._set_color(y, "black")
                     self._set_color(z.parent.parent, "red")
                     z = z.parent.parent
-                # Caso 2: zio nero, z figlio dx
+                # Case 2: uncle is black, z is uncle's right child
                 else:
                     if z == z.parent.right:
                         z = z.parent
                         self.rotate_left(z)
-                # Caso 3: zio nero, z figlio sx
+                # Case 3: uncle is black, z is uncle's left child
                     self._set_color(z.parent, "black")
                     self._set_color(z.parent.parent, "red")
                     self.rotate_right(z.parent.parent)
-                # Caso 4: simmetrico, z.parent è figlio dx
+                # Case 4: symmetrical, z.parent is right child
             else:
-                y = z.parent.parent.left      # casi simmetrici
+                y = z.parent.parent.left      # symmetrical cases
                 if self._get_color(y) == "red":
                     self._set_color(z.parent, "black")
                     self._set_color(y, "black")
@@ -59,91 +59,91 @@ class RBTree(BST):
         self._set_color(self.root, "black")
 
 
-    def _rb_switch(self, u, v):                     # u è il nodo da rimuovere, v è il nodo da mettere al suo posto
-    # facilita la funzione remove quando bisogna sostituire un nodo con il successore post rimozione
-        # Caso 1: u radice di un sottoalbero, v diventa nuova radice
+    def _rb_switch(self, u, v):                     # u is node to remove, v is the node to put in its place
+    # helps the remove function when it needs to swap node with his successor after removal
+        # Case 1: u root of subtree, v becomes new root
         if u.parent is None:
             self.root = v
-        # Caso 2: u è figlio sx, colleghiamo v al lato sx del padre
+        # Case 2: u is left child, v is connected to left side of parent
         elif u == u.parent.left:
             u.parent.left = v
-        # Caso 3: u è un figlio dx, colleghiamo v al lato dx del padre
+        # Case 3:u is right child, v is connected to right side of parent
         else:
             u.parent.right = v
-        # se v non è un nodo NIL, aggiorniamo puntatore al padre
+        # if v is not a NIL node, update pointer to father if v != NIL, pointer to father is updated
         if v is not None:
             v.parent = u.parent
 
 
-    def remove(self, node):                     # rimuove nodo da albero scambiando puntatori, se era nero l'altezza va sistemata
+    def remove(self, node):                     # removes node from tree switching pointers, if the node was black height needs to be fixed
         y = node
         y_original_color = self._get_color(y)
-        # Caso 1: nodo da rimuovere senza figlio sx
+        # Case 1: left child of node to remove is NIL
         if node.left is None:
-            x = node.right                              # nodo che prende il posto di y, se è None uso il padre
+            x = node.right                              # x is node who takes y place, if it's NIL we use his parent
             p = node.parent
-            self._rb_switch(node, node.right)           # li scambio
-        # Caso 2: nodo da rimuovere senza figlio dx
+            self._rb_switch(node, node.right)           # swapping using previous function 
+        # Case 2: right child of node to remove is NIL
         elif node.right is None:
             x = node.left
             p = node.parent
             self._rb_switch(node, node.left)
-        # Caso 3: nodo con due figli, uso il successore
+        # Case 3: node to remove has both children, we use successor
         else:
-            y = self.nxt(node)              # trovo successore e memorizzo il suo colore
+            y = self.nxt(node)              # find successor and memorize its color 
             y_original_color = self._get_color(y)
-            x = y.right                                              # suc è sempre senza figlio sx, suo figlio dx prende il suo posto
-            if y.parent == node:                # se il suc è il figlio dx del nodo da rimuovere
-                p = y                               # y sarà nuovo padre 
-                if x: x.parent = y                  # sistemiamo puntatori
-            else:                              # se il successore è più in profondità 
+            x = y.right                                              # successor is always without left child, his right child takes place of successor
+            if y.parent == node:                # if successor is right child of node to remove 
+                p = y                               # y will be the new parent 
+                if x: x.parent = y                  # fixing pointers
+            else:                              # if successor is deeper 
                 p = y.parent                        
-                self._rb_switch(y, y.right)         # swap di y e suo figlio
-                y.right = node.right                # y è nuova radice sottoalbero dx
-                y.right.parent = y                  # aggiorno puntatore
-                                               # nessuno dei casi precedenti 
-            self._rb_switch(node, y)                # sostituisco node con il successore di y
-            y.left = node.left                      # y radice sottoalbero sx
+                self._rb_switch(y, y.right)         # swap y and its child
+                y.right = node.right                # y is new root of right subtree
+                y.right.parent = y                  # updating pointer
+                                               # neither of previous cases
+            self._rb_switch(node, y)                # substitution of node with y's successor
+            y.left = node.left                      # y root of left subtree
             y.left.parent = y
             self._set_color(y, self._get_color(node))   
         
-        # ribilancio albero se ho rimosso nodo nero
+        # rebalance tree is black node was removed
         if y_original_color == "black":
             self._fix_remove(x, p)
 
-    def _fix_remove(self, x, p):                # ripristina proprietà albero se è stato rimosso nodo nero, x nodo nuovo e p è suo padre
+    def _fix_remove(self, x, p):                # restores tree properties if black node was removed, x is new node and p is x.parent 
         while x != self.root and self._get_color(x) == "black":
-            # x è figlio sinistro di p
+            # x is left child of p
             if x == p.left:              
-                w = p.right              # fratello di w
-                # Caso 1: fratello rosso
-                if self._get_color(w) == "red":             # coloro fratello nero e padre rosso, ruoto a sx => sposto x in un altro caso
+                w = p.right              # sibling of w
+                # Case 1: red sibling
+                if self._get_color(w) == "red":             # paints sibling black and parent red, left rotate to arrive in another case
                     self._set_color(w, "black")
                     self._set_color(p, "red")
                     self.rotate_left(p)
                     w = p.right
-                # Caso 2: fratello nero con figli neri
-                if self._get_color(w.left) == "black" and self._get_color(w.right) == "black":          # coloro fratello rosso e risalgo verso la radice
+                # Case 2: black sibling with black children 
+                if self._get_color(w.left) == "black" and self._get_color(w.right) == "black":          # paints sibling red and goes back to root 
                     self._set_color(w, "red")
                     x = p
                     p = x.parent if x else None
-                # Caso 3: fratello nero, figlio dx nero e sx rosso
-                else:                               # coloro fratello di rosso e figli entrambi neri, ruoto a destra spostandomi nel caso 4
+                # Case 3: black sibling with right child black and left child red
+                else:                               # paints sibling red and both children black, right rotate to arrive in case 4
                     if self._get_color(w.right) == "black":
                         self._set_color(w.left, "black")
                         self._set_color(w, "red")
                         self.rotate_right(w)
                         w = p.right
-                # Caso 4: fratello nero, diglio dx rosso e sx nero
+                # Case 4: black sibling, right child red and left child black
                     self._set_color(w, self._get_color(p))
                     self._set_color(p, "black")
                     self._set_color(w.right, "black")
                     self.rotate_left(p)
                     x = self.root
-            # x è figlio destro di p, simmetria
+            # x is black child of p, symmetrical case 
             else:
-                w = p.left          # fratello
-                # stessi casi solo simmetrici  
+                w = p.left          # sibling
+                # same cases but symmetrical  
                 if self._get_color(w) == "red":
                     self._set_color(w, "black")
                     self._set_color(p, "red")
@@ -166,7 +166,7 @@ class RBTree(BST):
                     self._set_color(w.left, "black")
                     self.rotate_right(p)
                     x = self.root
-        # nodo x (o radice) diventa nero per bilanciare altezza nera
+        # x node (or root) becomes black to balance black height 
         self._set_color(x, "black")
 
 
