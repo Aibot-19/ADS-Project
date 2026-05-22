@@ -51,7 +51,7 @@ class BST:                  # represents a binary search tree data structure
             # Case 1: right subtree isnt' NIL, suc is minimum of that tree
             if node.right != None:
                 return self.min(node.right)
-            # Case 2: right subtree is NIl, suc is one of the ancestors
+            # Case 2: right subtree is NIL,  suc is one of the ancestors
             else:
                 y = node.parent
                 while y != None and node != y.left:

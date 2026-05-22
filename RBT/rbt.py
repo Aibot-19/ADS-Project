@@ -107,7 +107,7 @@ class RBTree(BST):
             y.left.parent = y
             self._set_color(y, self._get_color(node))   
         
-        # rebalance tree is black node was removed
+        # rebalance tree if black node was removed
         if y_original_color == "black":
             self._fix_remove(x, p)
 
