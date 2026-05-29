@@ -61,13 +61,4 @@ class TreeManager():
         return statistics.median(tempi)
 
         
-    # in create_tree pesco un indice e inserisco la chiave relativa nell'array, swappo col muro e poi traslo --> costo O(1)
-    # in measure_insert misuro il tempo medio di una insert: aggiungo nodo, sposto muro, misuro tempo dell'inserimento, cerco nodo, rimuovo nodo !
-
-
-    # per la logica del muro: se il pc prende n random a un certo punto (soprattutto verso la fine) inizia a pescare numeri che prob. sono già dentro l'albero
-    # quindi rischia di andare in loop... per questo mettiamo tutte le chiavi in un array e ci mettiamo un MURO che differenza le chiavi dentro all'albero
-    # e quelle fuori. così facendo quando inserisco una chiave sposto il MURO in avanti (verso dx, inizialmente è tutto a sx) e poi quando tolgo una chiave 
-    # lo sposto indietro (verso sx). randomizzo la pescata solo su chiavi che sono pefforza fuori dall'albero quindi ez non ho loop o crash o puzzo.
- 
-
+    
