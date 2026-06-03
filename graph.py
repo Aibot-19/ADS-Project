@@ -49,7 +49,7 @@ def main():
     # adds a grid to make reading values easier
     plt.grid(True, which="both", ls="--", alpha=0.5)
 
-    # adds legend (upper left usually is the best place if lines don't go up !)
+    # adds legend 
     plt.legend(loc='upper left', fontsize=11)
 
     # 4. save and visualize

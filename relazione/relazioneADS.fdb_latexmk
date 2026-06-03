@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1779395028.33752 "/home/Aibot19/Scrivania/progetti/ADS-Project/relazione/relazioneADS.tex" "relazioneADS.pdf" "relazioneADS" 1779395028.80978 0
-  "/home/Aibot19/Scrivania/progetti/ADS-Project/relazione/relazioneADS.tex" 1779395028.1681 4903 b62f0e9a084282d0eaa9a3936a68a4ae ""
+["pdflatex"] 1779401387.73681 "/home/Aibot19/Scrivania/progetti/ADS-Project/relazione/relazioneADS.tex" "relazioneADS.pdf" "relazioneADS" 1779401388.26221 0
+  "/home/Aibot19/Scrivania/progetti/ADS-Project/relazione/relazioneADS.tex" 1779401387.0998 6537 8fc54bb4be7ba40ece7eac694d7d9497 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -213,9 +213,9 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1775001600 40900 887e0dc8cac988a9e9c574af364cf837 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777469089.86784 4547210 0b4d8bce3d83ee4f50b88a57a6a0d7ef ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777412004 7759953 3ed5cfd7f15affd973e817de893deaef ""
-  "relazioneADS.aux" 1779395028.7641 492 118389acf1f4534886886ebe8e145383 "pdflatex"
-  "relazioneADS.tex" 1779395028.1681 4903 b62f0e9a084282d0eaa9a3936a68a4ae ""
-  "relazioneADS.toc" 1779395028.76553 259 e399d672e73258e511dea7ff45af6d0b "pdflatex"
+  "relazioneADS.aux" 1779401388.21579 789 97eeaea532b71e1d729ffaf00e180337 "pdflatex"
+  "relazioneADS.tex" 1779401387.0998 6537 8fc54bb4be7ba40ece7eac694d7d9497 ""
+  "relazioneADS.toc" 1779401388.21579 433 a1f6f734ab2f991bd940e691c73223ca "pdflatex"
   (generated)
   "relazioneADS.aux"
   "relazioneADS.log"

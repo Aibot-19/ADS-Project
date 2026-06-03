@@ -2,9 +2,7 @@ import random
 import time 
 import statistics
 
-from RBT import RBT
-from AVL import AVL
-from BST import BST, TreeNode
+from BST import TreeNode
 
 
 
